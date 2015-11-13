@@ -329,7 +329,11 @@ class Request
     private static function handleResponse($response, $isRawResponse, $request)
     {
         $responseBody = (string) $response->getBody();
-
+        
+        // If the user wants a raw response, just give up and return the data.
+        if(!empty($isRawResponse)) {
+            return $responseBody;
+        }
         // decode json and handle any potential errors
         $jsonDecoded = json_decode($responseBody, true);
 
